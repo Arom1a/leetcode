@@ -1,5 +1,3 @@
-// https://leetcode.com/problems/special-array-i
-
 // Solution 1: %
 // pub fn is_array_special(nums: Vec<i32>) -> bool {
 //     for i in 0..(nums.len() - 1) {
