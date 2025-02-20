@@ -36,17 +36,11 @@
 
 // Solution 2: concepts of mathematics
 pub fn find_different_binary_string(nums: Vec<String>) -> String {
-    let mut ans = String::new();
-    for (i, s) in nums.iter().enumerate() {
-        ans.push(match s.chars().nth(i).expect("can not get out") {
-            '0' => '1',
-            '1' => '0',
-            _ => '2',
-        });
-    }
-    ans
+    nums.iter()
+        .enumerate()
+        .map(|(i, s)| if s.as_bytes()[i] == b'0' { '1' } else { '0' })
+        .collect()
 }
-
 fn main() {
     assert_eq!(
         find_different_binary_string(vec!["01".to_string(), "10".to_string()]),
