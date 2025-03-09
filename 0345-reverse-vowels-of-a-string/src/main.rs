@@ -1,26 +1,9 @@
-fn is_vowels(c: char) -> bool {
-    if c == 'a'
-        || c == 'e'
-        || c == 'i'
-        || c == 'o'
-        || c == 'u'
-        || c == 'A'
-        || c == 'E'
-        || c == 'I'
-        || c == 'O'
-        || c == 'U'
-    {
-        return true;
-    }
-    false
-}
-
 pub fn reverse_vowels(s: String) -> String {
     let mut s_vec: Vec<char> = s.chars().collect();
     let mut track_vowel: Vec<char> = vec![];
     let mut track_position: Vec<usize> = vec![];
     for (i, c) in s_vec.iter().enumerate() {
-        if is_vowels(*c) {
+        if matches!(c, 'a' | 'e' | 'i' | 'o' | 'u' | 'A' | 'E' | 'I' | 'O' | 'U') {
             track_vowel.push(*c);
             track_position.push(i);
         }
