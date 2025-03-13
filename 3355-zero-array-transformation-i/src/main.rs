@@ -1,3 +1,4 @@
+// Solution 1
 pub fn is_zero_array(nums: Vec<i32>, queries: Vec<Vec<i32>>) -> bool {
     let mut diff: Vec<i32> = vec![0; nums.len() + 1];
 
@@ -15,6 +16,33 @@ pub fn is_zero_array(nums: Vec<i32>, queries: Vec<Vec<i32>>) -> bool {
     }
     true
 }
+
+// Solution 2
+// pub fn is_zero_array(nums: Vec<i32>, queries: Vec<Vec<i32>>) -> bool {
+//     let mut diff: Vec<i32> = vec![0; nums.len() + 1];
+//     let mut dec = 0;
+//     let mut k = 0;
+//
+//     for i in 0..nums.len() {
+//         while dec + diff[i] < nums[i] {
+//             if k == queries.len() {
+//                 return false;
+//             }
+//
+//             let (l, r, val) = (queries[k][0], queries[k][1], 1);
+//             k += 1;
+//
+//             if (r as usize) < i {
+//                 continue;
+//             }
+//
+//             diff[(l as usize).max(i)] += val;
+//             diff[(r + 1) as usize] -= val;
+//         }
+//         dec += diff[i];
+//     }
+//     true
+// }
 
 fn main() {
     assert_eq!(is_zero_array(vec![1, 0, 1], vec![vec![0, 2]]), true);
