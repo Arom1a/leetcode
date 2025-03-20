@@ -1,23 +1,49 @@
+// Solution 1
+// pub fn longest_nice_subarray(nums: Vec<i32>) -> i32 {
+//     let mut l = 0;
+//     let mut r = 1;
+//     let mut max_len = 1;
+//
+//     while r < nums.len() {
+//         let mut cond = true;
+//         for i in l..r {
+//             if nums[r] & nums[i] != 0 {
+//                 cond = false;
+//                 break;
+//             }
+//         }
+//         if cond {
+//             r += 1;
+//             max_len = max_len.max(r - l);
+//         } else {
+//             l += 1;
+//             r = l;
+//         }
+//         if max_len == 30 {
+//             break;
+//         }
+//     }
+//
+//     max_len as _
+// }
+
+// Solution 2
 pub fn longest_nice_subarray(nums: Vec<i32>) -> i32 {
     let mut l = 0;
-    let mut r = 1;
-    let mut max_len = 1;
+    let mut r = 0;
+    let mut used_bits = 0;
+    let mut max_len = 0;
 
     while r < nums.len() {
-        let mut cond = true;
-        for i in l..r {
-            if nums[r] & nums[i] != 0 {
-                cond = false;
-                break;
-            }
-        }
-        if cond {
-            r += 1;
-            max_len = max_len.max(r - l);
-        } else {
+        if (used_bits & nums[r]) != 0 {
+            used_bits ^= nums[l];
             l += 1;
-            r = l;
+            continue;
         }
+
+        used_bits |= nums[r];
+        r += 1;
+        max_len = max_len.max(r - l);
         if max_len == 30 {
             break;
         }
