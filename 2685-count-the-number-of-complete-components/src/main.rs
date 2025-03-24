@@ -166,6 +166,64 @@ pub fn count_complete_components(n: i32, edges: Vec<Vec<i32>>) -> i32 {
 //     ans
 // }
 
+// Solution 4: union-find
+// use std::collections::HashMap;
+//
+// fn find(node: usize, parent: &mut Vec<usize>) -> usize {
+//     if parent[node] == node {
+//         return node;
+//     }
+//     parent[node] = find(parent[node], parent);
+//     return parent[node];
+// }
+//
+// fn union(node1: usize, node2: usize, parent: &mut Vec<usize>, size: &mut Vec<usize>) {
+//     let root1 = find(node1, parent);
+//     let root2 = find(node2, parent);
+//
+//     if root1 == root2 {
+//         return;
+//     }
+//
+//     if size[root1] > size[root2] {
+//         parent[root2] = root1;
+//         size[root1] += size[root2];
+//     } else {
+//         parent[root1] = root2;
+//         size[root2] += size[root1];
+//     }
+// }
+//
+// pub fn count_complete_components(n: i32, edges: Vec<Vec<i32>>) -> i32 {
+//     let n = n as usize;
+//     let mut parent = (0..n).into_iter().collect();
+//     let mut size = vec![1; n];
+//     let mut edge_count: HashMap<usize, i32> = HashMap::new();
+//
+//     for edge in &edges {
+//         let (u, v) = (edge[0] as usize, edge[1] as usize);
+//         union(u, v, &mut parent, &mut size);
+//     }
+//
+//     for edge in &edges {
+//         let root = find(edge[0] as usize, &mut parent);
+//         *edge_count.entry(root).or_default() += 1;
+//     }
+//
+//     let mut ans = 0;
+//     for i in 0..n {
+//         if find(i, &mut parent) == i {
+//             let node_count = size[i];
+//             let expt_edge = node_count * (node_count - 1) / 2;
+//             if *edge_count.get(&i).unwrap_or(&0) as usize == expt_edge {
+//                 ans += 1;
+//             }
+//         }
+//     }
+//
+//     ans
+// }
+
 fn main() {
     assert_eq!(
         count_complete_components(6, vec![vec![0, 1], vec![0, 2], vec![1, 2], vec![3, 4],]),
