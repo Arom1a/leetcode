@@ -1,0 +1,6 @@
+[package]
+name = "solving-questions-with-brainpower"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
