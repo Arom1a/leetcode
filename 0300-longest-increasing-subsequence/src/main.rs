@@ -1,20 +1,33 @@
 // DP: slow, O(n^2)
+// pub fn length_of_lis(nums: Vec<i32>) -> i32 {
+//     let n = nums.len();
+//     let mut dp = vec![1; n];
+//     for i in 0..n {
+//         for j in 0..i {
+//             if nums[j] < nums[i] {
+//                 dp[i] = dp[i].max(dp[j] + 1);
+//             }
+//         }
+//     }
+//     *dp.iter().max().unwrap()
+// }
+
+// binary search: O(n logn)
 pub fn length_of_lis(nums: Vec<i32>) -> i32 {
-    let n = nums.len();
-    let mut dp = vec![1; n];
-    let mut ans = 0;
-    for i in 0..n {
-        for j in 0..i {
-            if nums[j] < nums[i] {
-                dp[i] = dp[i].max(dp[j] + 1);
-            }
-            if dp[i] > ans {
-                ans = dp[i];
+    let mut p = vec![];
+    for i in nums {
+        match p.binary_search(&i) {
+            Ok(_) => continue,
+            Err(idx) => {
+                if idx == p.len() {
+                    p.push(i);
+                } else {
+                    p[idx] = i;
+                }
             }
         }
     }
-
-    *dp.iter().max().unwrap()
+    p.len() as _
 }
 
 fn main() {
