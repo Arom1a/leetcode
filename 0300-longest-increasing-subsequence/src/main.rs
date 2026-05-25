@@ -16,15 +16,11 @@
 pub fn length_of_lis(nums: Vec<i32>) -> i32 {
     let mut p = vec![];
     for i in nums {
-        match p.binary_search(&i) {
-            Ok(_) => continue,
-            Err(idx) => {
-                if idx == p.len() {
-                    p.push(i);
-                } else {
-                    p[idx] = i;
-                }
-            }
+        let lower_bound = p.partition_point(|&x| x < i);
+        if lower_bound == p.len() {
+            p.push(i);
+        } else {
+            p[lower_bound] = i;
         }
     }
     p.len() as _
